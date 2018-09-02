@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+CUDA_VISIBLE_DEVICES=0,1 python -W ignore trainer.py \
+	--dataset_name CNN-DM \
+	--max_examples -1 \
+	--restrict_vocab False \
+	--tgt_vocab_size 80000 \
+	--num_epochs 100 \
+	--parallel True \
+	--fix_embeddings True \
+	--share_decoder_embeddings True \
+	--batch_size 32 \
+	--test_batch_size 32 \
+	--skip_no_answer True \
+	--reader_type summarizer \
+	--learning_rate 2e-4 \
+	--coverage_attn False \
+	--copy_attn True \
+	--nlayers 2 \
+	--reuse_copy_attn True \
+	--checkpoint True \
+	--data_dir ./data/cnn_dm/truncated/ \
+	--train_file train.json \
+	--dev_file val.json \
+	--dev_json dev_v2.1.json \
+	--optfile /home/wasiahmad/workspace/projects/models/elmo/elmo_options.json \
+	--wgtfile /home/wasiahmad/workspace/projects/models/elmo/elmo_weights.hdf5 \
+	--embed_dir /home/wasiahmad/workspace/projects/glove/ \
+	--embedding_file glove.6B.100d.txt \
+	--model_dir ./summ_models/ \
+	--only_test True \
+	--model_name abstractor_with_copy
